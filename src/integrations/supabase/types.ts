@@ -14,7 +14,96 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      chat_messages: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          role: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      food_analyses: {
+        Row: {
+          analysis_result: Json | null
+          created_at: string
+          food_name: string | null
+          id: string
+          is_safe: boolean | null
+          user_id: string
+        }
+        Insert: {
+          analysis_result?: Json | null
+          created_at?: string
+          food_name?: string | null
+          id?: string
+          is_safe?: boolean | null
+          user_id: string
+        }
+        Update: {
+          analysis_result?: Json | null
+          created_at?: string
+          food_name?: string | null
+          id?: string
+          is_safe?: boolean | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          age: number | null
+          created_at: string
+          daily_carb_limit: number | null
+          diabetes_type: string | null
+          full_name: string | null
+          id: string
+          recent_glucose_level: number | null
+          updated_at: string
+          user_id: string
+          weight: number | null
+        }
+        Insert: {
+          age?: number | null
+          created_at?: string
+          daily_carb_limit?: number | null
+          diabetes_type?: string | null
+          full_name?: string | null
+          id?: string
+          recent_glucose_level?: number | null
+          updated_at?: string
+          user_id: string
+          weight?: number | null
+        }
+        Update: {
+          age?: number | null
+          created_at?: string
+          daily_carb_limit?: number | null
+          diabetes_type?: string | null
+          full_name?: string | null
+          id?: string
+          recent_glucose_level?: number | null
+          updated_at?: string
+          user_id?: string
+          weight?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

@@ -20,29 +20,35 @@ const Auth = () => {
     e.preventDefault();
     setLoading(true);
 
-    if (isLogin) {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) {
-        toast.error(error.message);
+    try {
+      if (isLogin) {
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) {
+          toast.error(error.message);
+        } else {
+          navigate("/dashboard");
+        }
       } else {
-        navigate("/dashboard");
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: { full_name: fullName },
+            emailRedirectTo: window.location.origin,
+          },
+        });
+        if (error) {
+          toast.error(error.message);
+        } else {
+          toast.success("Check your email to confirm your account!");
+        }
       }
-    } else {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: { full_name: fullName },
-          emailRedirectTo: window.location.origin,
-        },
-      });
-      if (error) {
-        toast.error(error.message);
-      } else {
-        toast.success("Check your email to confirm your account!");
-      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unable to complete authentication request.";
+      toast.error(message);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
